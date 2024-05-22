@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balloon Dog</title>
+</head>
+<style>
+    #canvas{
+        border: 2px solid black;
+        background-color: beige;
+    }
+</style>
+<body>
+    <br><br><br><br><br><br><br><br>
+    <center>
+    <canvas id="canvas" width="640" height="720">
+        <script>
+            function ellipseLinear(x, y, radx, rady, rot, sAngle, eAngle, flip){
+                var canvas = document.getElementById('canvas');
+                var line = canvas.getContext('2d');
+                line.lineWidth = 2.0;
+                line.strokeStyle = 'black';
+                line.beginPath();
+                if(flip){
+                    line.save();
+                    line.scale(-1, 1);
+                    x = -x;
+                }
+                line.ellipse(x, y, radx, rady, rot, sAngle, eAngle);
+                line.strokeStyle = 'black';
+                line.stroke();
+                var Lgradient = line.createLinearGradient(x - radx, y, x + radx, y);
+                Lgradient.addColorStop(0, 'lightblue');
+                Lgradient.addColorStop(1, 'lightyellow');
+                line.fillStyle = Lgradient;
+                line.fill();
+                line.restore();
+            }
+            function ellipseRadial(x, y, radx, rady, rot, sAngle, eAngle, flip){
+                var canvas = document.getElementById('canvas');
+                var line = canvas.getContext('2d');
+                line.lineWidth = 2.0;
+                line.strokeStyle = 'black';
+                line.beginPath();
+                if(flip){
+                    line.save();
+                    line.scale(-1, 1);
+                    x = -x;
+                }
+                line.ellipse(x, y, radx, rady, rot, sAngle, eAngle);
+                line.strokeStyle = 'black';
+                line.stroke();
+                var Rgradient = line.createRadialGradient(x - radx, y, 0, x + radx, y, Math.max(radx, rady));
+                Rgradient.addColorStop(0, 'lightblue');
+                Rgradient.addColorStop(1, 'lightyellow');
+                line.fillStyle = Rgradient;
+                line.fill();
+                line.restore();
+            }
+            function text(x, y, text, font) {
+                var canvas = document.getElementById('canvas');
+                var ctx = canvas.getContext('2d');
+                ctx.font = font;
+                ctx.fillStyle = 'dimgrey';
+                ctx.fillText(text, x, y);
+            }
+            ellipseLinear(175, 175, 50, 90, Math.PI / 9, 0, 2 * Math.PI, false);
+            ellipseRadial(175, 450, 50, 120, Math.PI / 6 , 0, 2 * Math.PI, false);
+            ellipseLinear(200, 300, 50, 90, Math.PI / 6, 0, 2 * Math.PI, true);
+            ellipseLinear(114, 233, 90, 50, Math.PI / 25, 0, 2 * Math.PI, false);
+            ellipseLinear(214, 175, 50, 90, Math.PI / 9, 0, 2 * Math.PI, false);
+            ellipseRadial(414, 450, 50, 120, Math.PI / 6, 0 , 2 * Math.PI, true);
+            ellipseLinear(325, 350, 90, 50, 0, 0, 2 * Math.PI, false);
+            ellipseLinear(450, 275, 50, 90, Math.PI / 6, 0, 2 * Math.PI, false);
+            ellipseRadial(200, 466, 50, 120, Math.PI / 6 , 0, 2 * Math.PI, false);
+            ellipseRadial(450, 450, 50, 120, Math.PI / 6, 0 , 2 * Math.PI, true);
+            text(225, 640, 'Balloon Dog', '30px Elephant')
+        </script>
+    </canvas>
+    </center>
+</body>
+</html>
